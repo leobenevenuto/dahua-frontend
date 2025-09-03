@@ -51,7 +51,7 @@ export function AppSidebar() {
         {/* Logo section */}
         <div className="mb-8 flex items-center justify-center">
           <img 
-            src="/src/assets/dahua-logo.png" 
+            src="/dahua-logo.png" 
             alt="Dahua Technology" 
             className={`${collapsed ? "h-8" : "h-10"} w-auto object-contain transition-all duration-300`}
           />

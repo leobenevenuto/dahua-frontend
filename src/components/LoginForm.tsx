@@ -55,7 +55,7 @@ export function LoginForm({ onLogin }: { onLogin: () => void }) {
         <div className="flex flex-col items-center space-y-6">
           <div className="flex justify-center">
             <img 
-              src="/src/assets/dahua-logo.png" 
+              src="/dahua-logo.png" 
               alt="Dahua Technology" 
               className="h-12 w-auto object-contain"
             />
