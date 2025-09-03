@@ -6,20 +6,25 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Lock, User, AlertCircle, Building2 } from "lucide-react";
+import { useAuth } from "@/contexts/authContexts";
+import { loginService } from "@/services/login.service";
+import { useNavigate } from "react-router-dom";
 
-export function LoginForm({ onLogin }: { onLogin: () => void }) {
+export function LoginForm() {
   const [credentials, setCredentials] = useState({
-    cliente: "",
-    username: "",
+    company: "",
+    email: "",
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!credentials.cliente || !credentials.username || !credentials.password) {
+    if (!credentials.company || !credentials.email || !credentials.password) {
       toast({
         variant: "destructive",
         title: "Required fields",
@@ -30,39 +35,29 @@ export function LoginForm({ onLogin }: { onLogin: () => void }) {
 
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const response = await loginService.login(credentials);
+      login(response.token);
+      
       toast({
         title: "Login successful!",
         description: "Welcome to the Integration Hub.",
       });
+      
+      navigate('/');
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Login failed",
+        description: "Invalid credentials. Please try again.",
+      });
+    } finally {
       setIsLoading(false);
-      onLogin(); // Call the login handler
-    }, 2000);
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-hero p-4 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-secondary/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-secondary/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-secondary/10 to-transparent rounded-full blur-2xl"></div>
-        <div className="absolute top-10 right-10 w-48 h-48 bg-secondary/25 rounded-full blur-2xl animate-pulse delay-500"></div>
-      </div>
-      
-      <div className="w-full max-w-md space-y-8 relative z-10">
-        <div className="flex flex-col items-center space-y-6">
-          <div className="flex justify-center">
-            <img 
-              src="/dahua-logo.png" 
-              alt="Dahua Technology" 
-              className="h-12 w-auto object-contain"
-            />
-          </div>
-        </div>
-
-        <Card className="w-full shadow-elevated border-0 bg-card/95 backdrop-blur-sm">
+    <Card className="w-full shadow-elevated border-0 bg-card/95 backdrop-blur-sm">
           <CardHeader className="space-y-1 text-center pb-6">
             <CardTitle className="text-2xl font-semibold">System Access</CardTitle>
             <CardDescription className="text-muted-foreground">
@@ -72,15 +67,15 @@ export function LoginForm({ onLogin }: { onLogin: () => void }) {
           <CardContent className="space-y-4">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="cliente" className="text-sm font-medium">
+                <Label htmlFor="company" className="text-sm font-medium">
                   Client
                 </Label>
                 <div className="relative">
                   <Building2 className="absolute left-3 top-3 h-4 w-4 text-muted-foreground z-10" />
                   <Select
-                    value={credentials.cliente}
+                    value={credentials.company}
                     onValueChange={(value) =>
-                      setCredentials({ ...credentials, cliente: value })
+                      setCredentials({ ...credentials, company: value })
                     }
                     disabled={isLoading}
                   >
@@ -88,26 +83,26 @@ export function LoginForm({ onLogin }: { onLogin: () => void }) {
                       <SelectValue placeholder="Select client" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="stralog">Stralog</SelectItem>
-                      <SelectItem value="intercomm">Intercomm</SelectItem>
+                      <SelectItem value="STRALOG">Stralog</SelectItem>
+                      <SelectItem value="INTERCOMM">Intercomm</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="username" className="text-sm font-medium">
-                  Username
+                <Label htmlFor="email" className="text-sm font-medium">
+                  Email
                 </Label>
                 <div className="relative">
                   <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
-                    id="username"
-                    type="text"
-                    placeholder="Enter your username"
-                    value={credentials.username}
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    value={credentials.email}
                     onChange={(e) =>
-                      setCredentials({ ...credentials, username: e.target.value })
+                      setCredentials({ ...credentials, email: e.target.value })
                     }
                     className="pl-10 h-12 transition-smooth focus:ring-dahua-primary focus:border-dahua-primary"
                     disabled={isLoading}
@@ -160,11 +155,5 @@ export function LoginForm({ onLogin }: { onLogin: () => void }) {
             </div>
           </CardContent>
         </Card>
-
-        <div className="text-center text-xs text-muted-foreground">
-          <p>© 2025 Linqui Tecnologia. All rights reserved.</p>
-        </div>
-      </div>
-    </div>
   );
 }
