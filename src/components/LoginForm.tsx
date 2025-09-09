@@ -44,7 +44,7 @@ export function LoginForm() {
         description: "Welcome to the Integration Hub.",
       });
       
-      navigate('/');
+      navigate('/product-registration');
     } catch (error) {
       toast({
         variant: "destructive",

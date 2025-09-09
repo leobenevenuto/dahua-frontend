@@ -3,11 +3,18 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { Button } from "@/components/ui/button";
 import { LogOut, Menu } from "lucide-react";
+import { useAuth } from "@/contexts/authContexts";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 export function MainLayout() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
   const handleLogout = () => {
-    // For now, just reload the page to go back to login
-    window.location.reload();
+    logout();
+    toast.success('Logout realizado com sucesso');
+    navigate('/login', { replace: true });
   };
 
   return (

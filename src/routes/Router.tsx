@@ -3,7 +3,7 @@ import { useAuth } from "@/contexts/authContexts";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { MainLayout } from "@/components/MainLayout";
 import Login from "@/pages/Login";
-import ProductRegistration from "@/pages/ProductRegistration";
+import ProductRegistration from "@/pages/products/ProductRegistration";
 import Dashboard from "@/pages/Dashboard";
 
 export function AppRouter() {
@@ -14,7 +14,7 @@ export function AppRouter() {
       <Route 
         path="/login" 
         element={
-          isAuthenticated ? <Navigate to="/" replace /> : <Login />
+          isAuthenticated ? <Navigate to="/product-registration" replace /> : <Login />
         } 
       />
       <Route path="/" element={
