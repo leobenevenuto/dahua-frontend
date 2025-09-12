@@ -43,7 +43,7 @@ export default function Inbound() {
               <CheckCircle className="h-5 w-5 text-green-600" />
               <div>
                 <p className="text-sm text-muted-foreground">Completed</p>
-                <p className="text-xl font-bold">5</p>
+                <p className="text-xl font-bold">0</p>
               </div>
             </div>
           </CardContent>
@@ -55,7 +55,7 @@ export default function Inbound() {
               <AlertCircle className="h-5 w-5 text-orange-600" />
               <div>
                 <p className="text-sm text-muted-foreground">Invoice Requested</p>
-                <p className="text-xl font-bold">3</p>
+                <p className="text-xl font-bold">0</p>
               </div>
             </div>
           </CardContent>
@@ -67,7 +67,7 @@ export default function Inbound() {
               <CheckCircle className="h-5 w-5 text-orange-600" />
               <div>
                 <p className="text-sm text-muted-foreground">Invoice Received</p>
-                <p className="text-xl font-bold">2</p>
+                <p className="text-xl font-bold">0</p>
               </div>
             </div>
           </CardContent>
@@ -79,7 +79,7 @@ export default function Inbound() {
               <Clock className="h-5 w-5 text-purple-600" />
               <div>
                 <p className="text-sm text-muted-foreground">Sent to WMS</p>
-                <p className="text-xl font-bold">1</p>
+                <p className="text-xl font-bold">0</p>
               </div>
             </div>
           </CardContent>
