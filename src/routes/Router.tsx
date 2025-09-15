@@ -6,6 +6,7 @@ import Login from "@/pages/Login";
 import ProductRegistration from "@/pages/products/ProductRegistration";
 import Dashboard from "@/pages/Dashboard";
 import Inbound from "@/pages/inbound/Inbound";
+import Outbound from "@/pages/outbound/Outbound";
 
 export function AppRouter() {
   const { isAuthenticated } = useAuth();
@@ -27,6 +28,7 @@ export function AppRouter() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="product-registration" element={<ProductRegistration />} />
         <Route path="inbound" element={<Inbound />} />
+        <Route path="outbound" element={<Outbound />} />
         <Route path="analytics" element={<div className="p-8 text-center text-muted-foreground">Analytics page coming soon...</div>} />
         <Route path="users" element={<div className="p-8 text-center text-muted-foreground">Users page coming soon...</div>} />
         <Route path="settings" element={<div className="p-8 text-center text-muted-foreground">Settings page coming soon...</div>} />
