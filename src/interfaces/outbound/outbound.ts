@@ -21,4 +21,8 @@ export interface OutboundPagination {
 export interface OutboundList {
   data: OutboundItem[]
   pagination: OutboundPagination
+}
+
+export interface ProcessScanResponse {
+  message: string
 } 

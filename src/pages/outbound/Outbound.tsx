@@ -1,12 +1,19 @@
 import React from "react";
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Package, CheckCircle, AlertCircle, Clock, Play } from "lucide-react";
 import { useOutbound } from "@/hooks/useOutbound";
 import OutboundTable from "./components/OutboundTable";
+import RunScanModal from "./components/RunScanModal";
 
 export default function Outbound() {
   const { data, loading, error, goToPage, page, refresh } = useOutbound();
+  const [showRunScanModal, setShowRunScanModal] = useState(false);
+
+  const handleScanComplete = () => {
+    refresh(); // Refresh the table after scan completes
+  };
 
   // Fixed stats values
   const stats = {
@@ -28,7 +35,7 @@ export default function Outbound() {
           </div>
         </div>
         <Button 
-          onClick={() => refresh()}
+          onClick={() => setShowRunScanModal(true)}
           className="flex items-center gap-2"
           size="lg"
         >
@@ -95,6 +102,13 @@ export default function Outbound() {
         error={error}
         onPageChange={goToPage}
         currentPage={page}
+      />
+
+      {/* Run Scan Modal */}
+      <RunScanModal 
+        open={showRunScanModal}
+        onOpenChange={setShowRunScanModal}
+        onScanComplete={handleScanComplete}
       />
     </div>
   );
