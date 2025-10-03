@@ -5,6 +5,7 @@ export interface InboundItem {
   invoiceRequested: boolean
   invoiceToStralog: boolean
   invoiceToIntercomm: boolean
+  invoiceConfirmationToSftp: boolean
   createdAt: string
   updatedAt: string
 }

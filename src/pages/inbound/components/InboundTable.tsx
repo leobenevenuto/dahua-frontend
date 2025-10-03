@@ -148,6 +148,7 @@ export default function InboundTable({ data, loading, error, onPageChange, curre
                   <TableHead className="font-semibold">Invoice Requested</TableHead>
                   <TableHead className="font-semibold">Invoice Received</TableHead>
                   <TableHead className="font-semibold">Sent to WMS</TableHead>
+                  <TableHead className="font-semibold">Sent to SFTP</TableHead>
                   <TableHead className="font-semibold text-center">Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -191,6 +192,9 @@ export default function InboundTable({ data, loading, error, onPageChange, curre
                     </TableCell>
                     <TableCell>
                       {getBooleanBadge(item.invoiceToStralog || item.invoiceToIntercomm, "Yes", "No")}
+                    </TableCell>
+                    <TableCell>
+                      {getBooleanBadge(item.invoiceConfirmationToSftp)}
                     </TableCell>
                     <TableCell className="text-center">
                       <Button 
