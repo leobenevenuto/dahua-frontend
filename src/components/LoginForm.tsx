@@ -83,8 +83,8 @@ export function LoginForm() {
                       <SelectValue placeholder="Select client" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="STRALOG">Stralog</SelectItem>
-                      <SelectItem value="INTERCOMM">Intercomm</SelectItem>
+                      <SelectItem value="stralog">Stralog</SelectItem>
+                      <SelectItem value="intercomm">Intercomm</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

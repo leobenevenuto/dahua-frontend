@@ -7,8 +7,11 @@ export const inboundService = {
     return response.data
   },
 
-  processScan: async (): Promise<ProcessScanResponse> => {
-    const response = await api.post<ProcessScanResponse>('/api/v1/inbound/process')
+  processScan: async (company?: string): Promise<ProcessScanResponse> => {
+    const endpoint = company === 'intercomm' 
+      ? '/api/v1/inbound/intercomm/process'
+      : '/api/v1/inbound/stralog/process'
+    const response = await api.post<ProcessScanResponse>(endpoint)
     return response.data
   }
 } 

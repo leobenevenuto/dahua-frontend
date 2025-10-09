@@ -3,11 +3,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Package, CheckCircle, AlertCircle, Clock, Play } from "lucide-react";
 import { useInbounds } from "@/hooks/useInbounds";
+import { useAuth } from "@/contexts/authContexts";
 import InboundTable from "./components/InboundTable";
 import RunScanModal from "./components/RunScanModal";
 
 export default function Inbound() {
   const { data, loading, error, goToPage, page, refresh } = useInbounds();
+  const { userData } = useAuth();
   const [showRunScanModal, setShowRunScanModal] = useState(false);
 
   const handleScanComplete = () => {
@@ -93,6 +95,7 @@ export default function Inbound() {
         error={error}
         onPageChange={goToPage}
         currentPage={page}
+        company={userData?.company}
       />
 
       {/* Run Scan Modal */}
@@ -100,6 +103,7 @@ export default function Inbound() {
         open={showRunScanModal}
         onOpenChange={setShowRunScanModal}
         onScanComplete={handleScanComplete}
+        company={userData?.company}
       />
     </div>
   );

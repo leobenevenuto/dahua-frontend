@@ -2,7 +2,7 @@ export interface InboundItem {
   processId: string
   sourceFileName: string
   invoiceReceived: boolean
-  invoiceRequested: boolean
+  invoiceRequested?: boolean // Optional - only exists for Stralog
   invoiceToStralog: boolean
   invoiceToIntercomm: boolean
   invoiceConfirmationToSftp: boolean

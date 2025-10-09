@@ -27,6 +27,7 @@ interface InboundTableProps {
   error: string | null;
   onPageChange: (page: number) => void;
   currentPage: number;
+  company?: string;
 }
 
 const getBooleanBadge = (value: boolean, trueText: string = "Yes", falseText: string = "No") => {
@@ -46,7 +47,7 @@ const getBooleanBadge = (value: boolean, trueText: string = "Yes", falseText: st
   );
 };
 
-export default function InboundTable({ data, loading, error, onPageChange, currentPage }: InboundTableProps) {
+export default function InboundTable({ data, loading, error, onPageChange, currentPage, company }: InboundTableProps) {
   if (error) {
     return (
       <Card>
@@ -145,7 +146,9 @@ export default function InboundTable({ data, loading, error, onPageChange, curre
                   <TableHead className="font-semibold">File Name</TableHead>
                   <TableHead className="font-semibold">Read Date</TableHead>
                   <TableHead className="font-semibold">Read Status</TableHead>
-                  <TableHead className="font-semibold">Invoice Requested</TableHead>
+                  {company !== 'intercomm' && (
+                    <TableHead className="font-semibold">Invoice Requested</TableHead>
+                  )}
                   <TableHead className="font-semibold">Invoice Received</TableHead>
                   <TableHead className="font-semibold">Sent to WMS</TableHead>
                   <TableHead className="font-semibold">Sent to SFTP</TableHead>
@@ -184,9 +187,11 @@ export default function InboundTable({ data, loading, error, onPageChange, curre
                         Completed
                       </Badge>
                     </TableCell>
-                    <TableCell>
-                      {getBooleanBadge(item.invoiceRequested)}
-                    </TableCell>
+                    {company !== 'intercomm' && (
+                      <TableCell>
+                        {getBooleanBadge(item.invoiceRequested || false)}
+                      </TableCell>
+                    )}
                     <TableCell>
                       {getBooleanBadge(item.invoiceReceived)}
                     </TableCell>

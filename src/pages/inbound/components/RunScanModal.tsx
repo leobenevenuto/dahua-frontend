@@ -14,9 +14,10 @@ interface RunScanModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onScanComplete?: () => void;
+  company?: string;
 }
 
-export default function RunScanModal({ open, onOpenChange, onScanComplete }: RunScanModalProps) {
+export default function RunScanModal({ open, onOpenChange, onScanComplete, company }: RunScanModalProps) {
   const [isScanning, setIsScanning] = useState(false);
   const [scanComplete, setScanComplete] = useState(false);
   const [scanMessage, setScanMessage] = useState("");
@@ -26,7 +27,7 @@ export default function RunScanModal({ open, onOpenChange, onScanComplete }: Run
     try {
       setIsScanning(true);
       setError(null);
-      const response = await inboundService.processScan();
+      const response = await inboundService.processScan(company);
       setScanMessage(response.message);
       setScanComplete(true);
       onScanComplete?.();
