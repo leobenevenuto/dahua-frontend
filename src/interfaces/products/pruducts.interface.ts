@@ -3,12 +3,13 @@ export interface ProductsHeaderData {
     partNumber: string;
     sourceFileName: string;
     createdAt: string;
+    status: 'waiting_integration' | 'completed' | 'error';
     response: {
-      wmsSenior: {
+      wmsSenior?: {
         status: string;
         message: string;
       };
-      wmsIntercomm: {
+      wmsIntercomm?: {
         status: string;
         message: string;
       };

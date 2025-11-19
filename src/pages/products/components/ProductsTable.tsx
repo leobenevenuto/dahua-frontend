@@ -29,19 +29,19 @@ interface ProductsTableProps {
   currentPage: number;
 }
 
-const getStatusBadge = (wmsSeniorStatus: string, wmsIntercommStatus: string) => {
-  if (wmsSeniorStatus === "200" && wmsIntercommStatus === "200") {
+const getStatusBadge = (status: 'waiting_integration' | 'completed' | 'error') => {
+  if (status === 'completed') {
     return (
       <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
         <CheckCircle className="h-3 w-3 mr-1" />
         Completed
       </Badge>
     );
-  } else if (wmsSeniorStatus === "unknown" || wmsIntercommStatus === "unknown") {
+  } else if (status === 'waiting_integration') {
     return (
       <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">
         <Clock className="h-3 w-3 mr-1" />
-        Processing
+        Waiting Integration
       </Badge>
     );
   } else {
@@ -175,7 +175,7 @@ export default function ProductsTable({ data, loading, error, onPageChange, curr
                       {item.sourceFileName}
                     </TableCell>
                     <TableCell>
-                      {getStatusBadge(item.response.wmsSenior.status, item.response.wmsIntercomm.status)}
+                      {getStatusBadge(item.status)}
                     </TableCell>
                     <TableCell className="text-center">
                       <Button 
